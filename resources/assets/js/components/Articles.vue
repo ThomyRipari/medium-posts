@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Articles</h2>
+    <h2 class="my-4">Write New Article</h2>
     <form @submit.prevent="addArticle" class="mb-3">
       <div class="form-group">
         <input type="text" class="form-control" placeholder="Title" v-model="article.title">
@@ -8,10 +8,18 @@
       <div class="form-group">
         <textarea class="form-control" placeholder="Body" v-model="article.body"></textarea>
       </div>
-      <button type="submit" class="btn btn-light btn-block">Save</button>
+      <button type="submit" class="btn btn-primary btn-block">Save</button>
     </form>
-    <button @click="clearForm()" class="btn btn-danger btn-block">Cancel</button>
-    <nav aria-label="Page navigation example">
+    <button @click="clearForm()" class="btn btn-danger btn-block mb-3">Cancel</button>
+    <div class="card card-body my-5" v-for="article in articles" v-bind:key="article.id">
+      <h3>{{ article.title }}</h3>
+      <p>{{ article.body }}</p>
+      <hr>
+      <button @click="editArticle(article)" class="btn btn-warning mb-2">Edit</button>
+      <button @click="deleteArticle(article.id)" class="btn btn-danger">Delete</button>
+    </div>
+
+    <nav aria-label="Page navigation example" class="d-flex justify-content-center">
       <ul class="pagination">
         <li v-bind:class="[{disabled: !pagination.prev_page_url}]" class="page-item"><a class="page-link" href="#" @click="fetchArticles(pagination.prev_page_url)">Previous</a></li>
 
@@ -20,13 +28,6 @@
         <li v-bind:class="[{disabled: !pagination.next_page_url}]" class="page-item"><a class="page-link" href="#" @click="fetchArticles(pagination.next_page_url)">Next</a></li>
       </ul>
     </nav>
-    <div class="card card-body mb-2" v-for="article in articles" v-bind:key="article.id">
-      <h3>{{ article.title }}</h3>
-      <p>{{ article.body }}</p>
-      <hr>
-      <button @click="editArticle(article)" class="btn btn-warning mb-2">Edit</button>
-      <button @click="deleteArticle(article.id)" class="btn btn-danger">Delete</button>
-    </div>
   </div>
 </template>
 
@@ -79,7 +80,6 @@ export default {
         })
           .then(res => res.json())
           .then(data => {
-            alert('Article Removed');
             this.fetchArticles();
           })
           .catch(err => console.log(err));
@@ -98,7 +98,6 @@ export default {
           .then(res => res.json())
           .then(data => {
             this.clearForm();
-            alert('Article Added');
             this.fetchArticles();
           })
           .catch(err => console.log(err));
@@ -114,7 +113,6 @@ export default {
           .then(res => res.json())
           .then(data => {
             this.clearForm();
-            alert('Article Updated');
             this.fetchArticles();
           })
           .catch(err => console.log(err));

@@ -1,6 +1,4 @@
-# Larticles Laravel/Vue App
-
-> Laravel 5.5 API that uses the API resources with a Vue.js frontend
+# Medium Laravel/Vue App
 
 ## Quick Start
 
@@ -53,21 +51,3 @@ title/body
 PUT api/article
 article_id/title/body
 ```
-
-
-```
-
-## App Info
-
-### Author
-
-Brad Traversy
-[Traversy Media](http://www.traversymedia.com)
-
-### Version
-
-1.0.0
-
-### License
-
-This project is licensed under the MIT License
